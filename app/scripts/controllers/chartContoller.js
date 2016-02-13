@@ -19,14 +19,6 @@ angular.module('sbAdminApp')
 
         var ctx = document.getElementById("bar-progForce").getContext("2d");
         var myBar = new Chart(ctx).Bar(bar, {
-            //showScale: true,
-            //showTooltips: false
-            //animation: false,
-            //maintainAspectRatio: false
-            /*responsive : false,
-            scaleBeginAtZero : true,
-            scaleShowGridLines : true*/
-            //barShowStroke: true
         });
 
         var lastBarLength = 0;
@@ -63,15 +55,7 @@ angular.module('sbAdminApp')
             data: [
                 [65, 59, 80],
                 [28, 48, 40]
-            ],
-            onFileChange: function () {
-                console.log(2);
-                this.labels[0] = "TEST";
-                this.labels.push("new one");
-                this.series.push("new one");
-                this.data.push(55);
-                //this.update();
-            }
+            ]
         };
 
         $scope.line = {
