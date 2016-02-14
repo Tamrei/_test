@@ -29,7 +29,7 @@ angular.module('sbAdminApp')
                 var count = 0;
                 for(var i = 0; i < len; i++){
                     if(arr[i] === element){
-                        if (count >= 1) {arr.splice(i, 1);}
+                        if (count >= 1) {arr.splice(i, 1);} // remove duplicated element from array
                         count++;
                     }
                 }
@@ -47,6 +47,17 @@ angular.module('sbAdminApp')
                     });
                 }
             }
+
+            function compare(a,b) {
+                if (a.count < b.count)
+                    return 1;
+                else if (a.count > b.count)
+                    return -1;
+                else
+                    return 0;
+            }
+
+            result.sort(compare);
 
             return result;
         }
