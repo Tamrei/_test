@@ -1,5 +1,9 @@
 ## Test task
 
+## Screenshot
+
+<img src="http://imgur.com/8GKoU6g">
+
 ## Installation
 ####1. Clone this project or Download that ZIP file
 
