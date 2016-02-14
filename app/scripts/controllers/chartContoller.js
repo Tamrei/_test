@@ -8,22 +8,25 @@
  */
 angular.module('sbAdminApp')
     .controller('ChartCtrl', ['$scope', '$timeout', 'progForceService', function ($scope, $timeout, progForceService) {
-        var bar = {
+
+        /** PROGFORCE TEST TASK STARTS **/
+        var barDefault = {
             labels: [],
-            //series: ['data'],
             datasets: [{
                 data: []
-
             }]
         };
 
-        var ctx = document.getElementById("bar-progForce").getContext("2d");
-        var myBar = new Chart(ctx).Bar(bar, {
+        var progForceBar = document.getElementById("bar-progForce");
+        var ctx = progForceBar.getContext("2d");
+        var barInstance = new Chart(ctx).Bar(barDefault, {
+            responsive: true
         });
 
-        var lastBarLength = 0;
+        progForceBar.style.width ='100%';
+        progForceBar.width  = progForceBar.offsetWidth;
 
-        var textFromFile;
+        var lastBarLength = 0;
         $scope.onFileSelect = function(changeEvent) {
             var wordCount;
 
@@ -31,22 +34,21 @@ angular.module('sbAdminApp')
             if (files.length) {
                 var r = new FileReader();
                 r.onload = function(e) {
-                    //var contents = e.target.result;
-                    textFromFile = e.target.result;
-                    wordCount = progForceService.countWord(textFromFile);
+                    wordCount = progForceService.countWord(e.target.result);
 
                     for (var i = 0; i < lastBarLength; i++) {
-                        myBar.removeData();
-                        lastBarLength = wordCount.length;
+                        barInstance.removeData();
                     }
 
                     for (var i = 0; i < wordCount.length; i++) {
-                        myBar.addData([wordCount[i].count], wordCount[i].word);
+                        barInstance.addData([wordCount[i].count], wordCount[i].word);
                     }
+                    lastBarLength = wordCount.length; //remember the amount of bars so we could remove exact same amount
                 };
                 r.readAsText(files[0]);
             }
         };
+        /** PROGFORCE TEST TASK ENDS **/
 
 
         $scope.bar = {

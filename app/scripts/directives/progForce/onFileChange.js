@@ -6,7 +6,6 @@ angular.module('sbAdminApp')
         return {
             restrict: 'A',
             link: function (scope, element, attrs) {
-                console.log("directive.");
                 var onChangeHandler = scope.$eval(attrs.onFileChange);
                 element.bind('change', onChangeHandler);
             }

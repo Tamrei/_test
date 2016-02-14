@@ -2,82 +2,53 @@
 
 angular.module('sbAdminApp')
     .factory('progForceService', function () {
+
         var service = {
             countWord: countWord
         };
+
         return service;
 
+        /**
+         * returns array with two prop 'word' and 'count'
+         * where word is the word that occurrence in @param string
+         * and count prop stores how much this word occurrences
+         *
+         * @param string
+         * @returns {Array}
+         */
         function countWord(string) {
-            string = string.replace(/-|:|,|\.|goat/gi, ""); // regexp
+            string = string.replace(/-|:|,|\./g, ""); // remove spec symbols
+            string = string.replace(/\r?\n|\r/g, " "); // remove breaks
             var arr = string.split(" ");
 
-            var finalResult = [];
+            var result = [];
 
-            var wordsArr = [];
-            var countArr = [];
-
-            for (var i = 0; i < arr.length; i++) {
-                var occurrence = countOccurrences(arr, arr[i]);
-
-                var word = arr[i].toLowerCase();
-
-                if (!isIn(wordsArr, word) && word.length >= 2) {
-                    wordsArr.push(word);
-                    countArr.push(occurrence);
+            function countOccurrences(element){
+                var len = arr.length;
+                var count = 0;
+                for(var i = 0; i < len; i++){
+                    if(arr[i] === element){
+                        if (count >= 1) {arr.splice(i, 1);}
+                        count++;
+                    }
                 }
+                return count;
             }
 
-            //console.log(wordsArr.length);
-            //console.log(countArr.length);
+            for (var i = 0; i < arr.length; i++) {
+                var count = countOccurrences(arr[i]);
+                var word = arr[i] + "";
 
-            for (var j = 0; j < countArr.length; j++) {
-                //console.log(countArr[j]);
-                if (countArr[j] >= 2) {
-                    finalResult.push({
-                       word: wordsArr[j],
-                        count: countArr[j]
+                if (word.length >= 2 && count >= 2) {
+                    result.push({
+                        word: word.toLowerCase(),
+                        count: count
                     });
                 }
             }
 
-            return finalResult;
-        }
-
-        function isIn(arr, element) {
-            for (var i = 0; i < arr.length; i++) {
-                if (arr[i] === element) {
-                    return true
-                }
-            }
-        }
-
-        function countOccurrences(arr, value){
-            var len = arr.length;
-            var occur = 0;
-            for(var i = 0; i < len; i++){
-                if(arr[i] === value){
-                    occur++;
-                }
-            }
-            return occur;
-        }
-
-        //var count = countOccurrences(['aaa','bbb','ccc','bbb','ddd'],'bbb');    //2
-
-        // res = array
-        function isContain(res, value) {
-            var length = res.length;
-
-            for (var j = 0; j < length; j++) {
-                //console.log(res[j].word.toUpperCase());
-                //console.log(value.toUpperCase());
-                var word = "" + res[j].word.toUpperCase();
-                console.log(word);
-                if (word == value.toUpperCase()) {
-                    console.log("+++");
-                    return true;
-                }
-            }
+            return result;
         }
 
     });
