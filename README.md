@@ -2,7 +2,7 @@
 
 ## Screenshot
 
-<img src="http://imgur.com/8GKoU6g">
+<img src="http://i.imgur.com/8GKoU6g.jpg?1">
 
 ## Installation
 ####1. Clone this project or Download that ZIP file
