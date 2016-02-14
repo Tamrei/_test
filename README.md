@@ -56,3 +56,6 @@ sudo chown -R [user name] ~/.config
 ### Automation tools
 
 - [Grunt](http://gruntjs.com/)
+
+
+### Template taken from the https://github.com/start-angular/sb-admin-angular
